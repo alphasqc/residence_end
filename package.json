@@ -1,0 +1,25 @@
+{
+  "name": "residence_end",
+  "version": "1.0.0",
+  "description": "- 特此声明：本项目是本人毕业设计的项目\r - 本项目为前后端分离进行开发，本项目为项目后端部分",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphasqc/residence_end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alphasqc/residence_end/issues"
+  },
+  "homepage": "https://github.com/alphasqc/residence_end#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.1.0",
+    "sequelize": "^6.28.0"
+  }
+}
