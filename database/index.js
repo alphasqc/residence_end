@@ -18,8 +18,16 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
         idle: 10000 //如果一个线程10秒内没有被使用过的话，就释放
     },
     logging: true,
+    // dialectOptions: {
+    //     charset: "utf8mb4",
+    //     collate: "utf8mb4_unicode_ci",
+    //     supportBigNumbers: true,
+    //     bigNumberStrings: true
+    // }
 });
 
 const userModel = require('./model/user')(sequelize, DataTypes);
+const blogsModel = require('./model/blogs')(sequelize, DataTypes);
+const teaModel = require('./model/tea')(sequelize, DataTypes);
 
-module.exports = { sequelize, userModel }
+module.exports = { sequelize, userModel, blogsModel, teaModel }
