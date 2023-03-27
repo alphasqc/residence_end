@@ -1,14 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-    const user = sequelize.define('Blogs', {
+    const blogs = sequelize.define('Blogs', {
         // 在这里定义模型属性
         blogID: {
             type: DataTypes.INTEGER(11), //字段类型
             primaryKey: true, // 主键
             autoIncrement: true //自增长
-        },
-        userID: {
-            type: DataTypes.INTEGER(11),
-            allowNull: false //非空
         },
         blogTitle: {
             type: DataTypes.STRING(100),
@@ -18,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(1000),
             allowNull: false
         },
-        typeId: {
-            type: DataTypes.INTEGER(11),
+        blogType: {
+            type: DataTypes.STRING(10),
             allowNull: false
         },
         blogImg: {
@@ -32,5 +28,5 @@ module.exports = (sequelize, DataTypes) => {
         // 这是其他模型参数
     });
 
-    return user
+    return blogs
 }

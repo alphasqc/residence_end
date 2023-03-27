@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const { blogsModel } = require('../../database/index');
+const { blogsModel, userModel } = require('../../database/index');
 
 // 全部查询
 router.get('/', async (req, res) => {
-    const blogs = await blogsModel.findAll();
+    const blogs = await blogsModel.findAll({
+        include: [
+            { model: userModel }
+        ],
+        attributes: [ 'blogID', 'blogImg', 'blogTitle', 'blogContent', 'User.userName']
+    });
     res.send({
         code: 200,
         msg: "success",
@@ -12,10 +17,32 @@ router.get('/', async (req, res) => {
     });
 })
 
+// 分类查询实例
+router.post('/type', async (req, res) => {
+    const { blogType } = req.body;
+    const { Op } = require("sequelize");
+    const findblog = await blogsModel.findAll({
+        include: [
+            { model: userModel }
+        ],
+        attributes: ['blogID', 'blogImg', 'blogTitle', 'blogContent', 'User.userName'],
+        where: {
+            blogType: {
+                [Op.eq]: blogType
+            }
+        }
+    });
+    res.send({
+        code: 200,
+        msg: "success",
+        data: findblog
+    });
+})
+
 // 新增实例
 router.post('/add', async (req, res) => {
-    const { blogID, userID, blogTitle, blogContent, typeId, blogImg } = req.body;
-    const blogadd = await blogsModel.create({ blogID, userID, blogTitle, blogContent, typeId, blogImg });
+    const { userID, blogTitle, blogContent, blogType, blogImg } = req.body;
+    const blogadd = await blogsModel.create({ userID, blogTitle, blogContent, blogType, blogImg });
     res.send({
         code: 200,
         msg: "success",
@@ -26,7 +53,6 @@ router.post('/add', async (req, res) => {
 // 删除指定ID实例
 router.post('/delete', async (req, res) => {
     const { blogID } = req.body;
-    // console.log(userID)
     const blogdelete = await blogsModel.destroy({
         where: {
             blogID: blogID
