@@ -30,4 +30,8 @@ const userModel = require('./model/user')(sequelize, DataTypes);
 const blogsModel = require('./model/blogs')(sequelize, DataTypes);
 const teaModel = require('./model/tea')(sequelize, DataTypes);
 
+// 一对多关联
+userModel.hasMany(blogsModel);
+blogsModel.belongsTo(userModel);
+
 module.exports = { sequelize, userModel, blogsModel, teaModel }

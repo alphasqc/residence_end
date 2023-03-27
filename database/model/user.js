@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false
         },
-        userIsadmin: {
-            type: DataTypes.STRING(1),
-            allowNull: false
-        }
+        // userIsadmin: {
+        //     type: DataTypes.STRING(1),
+        //     allowNull: false
+        // }
     }, {
         tableName: 'users',
         timestamps: true
