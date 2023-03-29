@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         userAvator: {
             type: DataTypes.STRING(100),
-            allowNull: false
+            allowNull: true
         },
         // userIsadmin: {
         //     type: DataTypes.STRING(1),
