@@ -41,8 +41,8 @@ router.post('/type', async (req, res) => {
 
 // 新增实例
 router.post('/add', async (req, res) => {
-    const { userID, blogTitle, blogContent, blogType, blogImg } = req.body;
-    const blogadd = await blogsModel.create({ userID, blogTitle, blogContent, blogType, blogImg });
+    const { UserUserID, blogTitle, blogContent, blogType, blogImg } = req.body;
+    const blogadd = await blogsModel.create({ UserUserID, blogTitle, blogContent, blogType, blogImg });
     res.send({
         code: 200,
         msg: "success",
