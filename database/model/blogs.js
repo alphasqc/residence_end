@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         blogContent: {
-            type: DataTypes.STRING(1000),
+            type: DataTypes.STRING(5000),
             allowNull: false
         },
         blogType: {

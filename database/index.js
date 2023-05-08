@@ -29,9 +29,13 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const userModel = require('./model/user')(sequelize, DataTypes);
 const blogsModel = require('./model/blogs')(sequelize, DataTypes);
 const teaModel = require('./model/tea')(sequelize, DataTypes);
+const starModel = require('./model/star')(sequelize, DataTypes);
+const commentModel = require('./model/comment')(sequelize, DataTypes);
+const noteModel = require('./model/note')(sequelize, DataTypes);
+const likeModel = require('./model/like')(sequelize, DataTypes);
 
 // 一对多关联
 userModel.hasMany(blogsModel);
 blogsModel.belongsTo(userModel);
 
-module.exports = { sequelize, userModel, blogsModel, teaModel }
+module.exports = { sequelize, userModel, blogsModel, teaModel, starModel, commentModel, noteModel, likeModel }
