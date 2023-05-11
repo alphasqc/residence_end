@@ -37,5 +37,18 @@ const likeModel = require('./model/like')(sequelize, DataTypes);
 // 一对多关联
 userModel.hasMany(blogsModel);
 blogsModel.belongsTo(userModel);
+userModel.hasMany(commentModel);
+commentModel.belongsTo(userModel);
+blogsModel.hasMany(starModel);
+starModel.belongsTo(blogsModel);
+blogsModel.hasMany(likeModel);
+likeModel.belongsTo(blogsModel);
+userModel.hasMany(starModel);
+starModel.belongsTo(userModel);
+userModel.hasMany(likeModel);
+likeModel.belongsTo(userModel);
+userModel.hasMany(noteModel);
+noteModel.belongsTo(userModel);
+
 
 module.exports = { sequelize, userModel, blogsModel, teaModel, starModel, commentModel, noteModel, likeModel }

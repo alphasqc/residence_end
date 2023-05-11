@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { starModel } = require('../../database/index');
+const { starModel, blogsModel } = require('../../database/index');
 
 // 新增实例
 router.post('/add', async (req, res) => {
-    const { userID, blogID } = req.body;
-    const staradd = await starModel.create({ userID, blogID });
+    const { UserUserID, BlogBlogID } = req.body;
+    const staradd = await starModel.create({ UserUserID, BlogBlogID });
     res.send({
         code: 200,
         msg: "success",
@@ -15,11 +15,11 @@ router.post('/add', async (req, res) => {
 
 // 删除指定ID实例
 router.post('/delete', async (req, res) => {
-    const { blogID, userID } = req.body;
+    const { BlogBlogID, UserUserID } = req.body;
     const stardelete = await starModel.destroy({
         where: {
-            blogID: blogID,
-            userID: userID
+            BlogBlogID: BlogBlogID,
+            UserUserID: UserUserID
         }
     });
     res.send({
@@ -30,20 +30,53 @@ router.post('/delete', async (req, res) => {
 })
 
 // 查询指定ID实例
-router.post('/show', async (req, res) => {
-    const { userID } = req.body;
-    const showstar = await starModel.findAll({
+router.post('/find', async (req, res) => {
+    const { UserUserID, BlogBlogID } = req.body;
+    const findstar = await starModel.findAll({
         where: {
-            userID: {
-                userID
-            }
+            UserUserID: UserUserID,
+            BlogBlogID: BlogBlogID
         }
     });
-    res.send({
-        code: 200,
-        msg: "success",
-        data: showstar
+    if (findstar == '') {
+        res.send({
+            code: 401,
+            msg: "failed",
+            data: findstar
+        });
+    }else {
+        res.send({
+            code: 200,
+            msg: "success",
+            data: findstar
+        });
+    }
+})
+
+// 查询指定用户实例
+router.post('/show', async (req, res) => {
+    const { UserUserID } = req.body;
+    const showstar = await starModel.findAll({
+        where: {
+            UserUserID: UserUserID
+        },
+        include: [
+            { model: blogsModel }
+        ]
     });
+    if (showstar == '') {
+        res.send({
+            code: 401,
+            msg: "failed",
+            data: showstar
+        });
+    } else {
+        res.send({
+            code: 200,
+            msg: "success",
+            data: showstar
+        });
+    }
 })
 
 module.exports = router

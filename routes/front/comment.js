@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { commentModel } = require('../../database/index');
+const { commentModel, userModel } = require('../../database/index');
 
 // 新增实例
 router.post('/add', async (req, res) => {
-    const { blogID, userID, commentContent, toID } = req.body;
-    const commentadd = await commentModel.create({ blogID, userID, commentContent, toID });
+    const { blogID, UserUserID, commentContent, toID } = req.body;
+    const commentadd = await commentModel.create({ blogID, UserUserID, commentContent, toID });
     res.send({
         code: 200,
         msg: "success",
@@ -34,7 +34,11 @@ router.post('/find', async (req, res) => {
     const findcomment = await commentModel.findAll({
         where: {
             blogID: blogID
-        }
+        },
+        include: [
+            { model: userModel }
+        ],
+        attributes: ['User.userName', 'commentContent']
     });
     res.send({
         code: 200,

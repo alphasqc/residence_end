@@ -24,21 +24,21 @@ const port = 3001;
 })()
 
 // token
-app.use(
-    jwt({
-        credentialsRequired: false,
-        // 密钥
-        secret: "usertoken",
-        // 算法
-        algorithms: ["HS256"] 
-    }).unless({
-        //添加不需要token验证的路由 
-        path: [
-            "/user/login",
-            "/user/regist"
-        ]
-    })
-);
+// app.use(
+//     jwt({
+//         credentialsRequired: false,
+//         // 密钥
+//         secret: "usertoken",
+//         // 算法
+//         algorithms: ["HS256"] 
+//     }).unless({
+//         //添加不需要token验证的路由 
+//         path: [
+//             "/user/login",
+//             "/user/regist"
+//         ]
+//     })
+// );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

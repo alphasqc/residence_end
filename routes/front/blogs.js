@@ -65,6 +65,27 @@ router.post('/delete', async (req, res) => {
     })
 })
 
+// 搜索
+router.post('/search', async (req, res) => {
+    const { searchInput } = req.body;
+    const { Op } = require("sequelize");
+    const showblog = await blogsModel.findAll({
+        where: {
+            blogTitle: {
+                [Op.like]: '%' + searchInput + '%'
+            }
+        },
+        include: [
+            { model: userModel }
+        ]
+    });
+    res.send({
+        code: 200,
+        msg: "success",
+        data: showblog
+    });
+})
+
 // 查询指定ID实例
 router.post('/find', async (req, res) => {
     const { blogID } = req.body;
@@ -76,6 +97,24 @@ router.post('/find', async (req, res) => {
                 [Op.eq]: blogID
             }
         }
+    });
+    res.send({
+        code: 200,
+        msg: "success",
+        data: findblog
+    });
+})
+
+// 查询指定用户文章实例
+router.post('/showblog', async (req, res) => {
+    const { UserUserID } = req.body;
+    const findblog = await blogsModel.findAll({
+        where: {
+            UserUserID: UserUserID
+        },
+        include: [
+            { model: userModel }
+        ]
     });
     res.send({
         code: 200,

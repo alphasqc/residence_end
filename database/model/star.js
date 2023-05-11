@@ -6,14 +6,6 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true, // 主键
             autoIncrement: true //自增长
         },
-        userID: {
-            type: DataTypes.INTEGER(11), //字段类型
-            allowNull: false //非空
-        },
-        blogID: {
-            type: DataTypes.INTEGER(11), //字段类型
-            allowNull: false //非空
-        }
     }, {
         tableName: 'stars',
         timestamps: true

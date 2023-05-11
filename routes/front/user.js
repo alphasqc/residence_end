@@ -46,10 +46,26 @@ router.post('/find', async (req, res) => {
     const { userID } = req.body;
     const { Op } = require("sequelize");
     const finduser = await userModel.findAll({
+        attributes: ['userName', 'userEmail', 'userAvator'],
         where: {
             userID:{
                 [Op.eq]: userID
             }
+        }
+    });
+    res.send({
+        code: 200,
+        msg: "success",
+        data: finduser
+    });
+})
+
+// 查询指定ID实例
+router.post('/setting', async (req, res) => {
+    const { userID } = req.body;
+    const finduser = await userModel.findAll({
+        where: {
+            userID: userID
         }
     });
     res.send({
@@ -105,12 +121,35 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// 搜索
+router.post('/search', async (req, res) => {
+    const { searchInput } = req.body;
+    const { Op } = require("sequelize");
+    const showuser = await userModel.findAll({
+        where: {
+            userName: {
+                [Op.like]: '%' + searchInput + '%'
+            }
+        }
+    });
+    res.send({
+        code: 200,
+        msg: "success",
+        data: showuser
+    });
+})
+
 // 更新指定ID实例
 router.post('/update', async (req, res) => {
-    const { userID, userName } = req.body;
-    // console.log(req.body)
+    const { userID, userName, userPassword, userSex, userEmail, userPhone, userAvator } = req.body;
+    console.log(userPassword)
     const userupdate = await userModel.update({
         userName: userName,
+        userPassword: userPassword,
+        userSex: userSex,
+        userEmail: userEmail,
+        userPhone: userPhone,
+        userAvator: userAvator
         },{
             where: {
                 userID: userID

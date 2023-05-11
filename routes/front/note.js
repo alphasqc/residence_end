@@ -4,8 +4,8 @@ const { noteModel } = require('../../database/index');
 
 // 新增实例
 router.post('/add', async (req, res) => {
-    const { userID, noteContent } = req.body;
-    const noteadd = await noteModel.create({ userID, noteContent });
+    const { UserUserID, noteContent } = req.body;
+    const noteadd = await noteModel.create({ UserUserID, noteContent });
     res.send({
         code: 200,
         msg: "success",
@@ -30,12 +30,10 @@ router.post('/delete', async (req, res) => {
 
 // 查询指定ID实例
 router.post('/show', async (req, res) => {
-    const { userID } = req.body;
+    const { UserUserID } = req.body;
     const shownote = await noteModel.findAll({
         where: {
-            userID: {
-                userID
-            }
+            UserUserID: UserUserID
         }
     });
     res.send({
